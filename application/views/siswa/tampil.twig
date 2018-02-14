@@ -1,0 +1,51 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}
+	Detail Siswa {{ siswa.nama|title }}
+{% endblock %}
+
+{% block header %}
+	<h1> Detail Siswa {{ siswa.nama|title }}</h1>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover">
+					<tbody>
+						<tr>
+							<th>Nama</th>
+							<td>{{ siswa.nama|title }}</td>
+						</tr>
+						<tr>
+							<th>Tahun</th>
+							<td>{{ siswa.tahun }}</td>
+						</tr>
+						<tr>
+							<th>Kelas</th>
+							<td>{{ siswa.kelas.kelas }}</td>
+						</tr>
+						<tr>
+							<th>Ruang</th>
+							<td>{{ siswa.ruang.ruang }}</td>
+						</tr>
+						<tr>
+							<th>Iuran</th>
+							<td>
+								<ul class="list-unstyled">
+									{% for item in siswa.status %}
+										<li><p class="bg-{{ item.status ? 'success':'danger' }}"><i class="fa fa-{{ item.status ? 'check':'remove' }}"></i> &nbsp; <span class="text-{{ item.status ? 'success':'danger' }}">{{ item.iuran.kategori|title }}</span></p></li>
+									{% endfor %}
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<a href="{{ [base_url('siswa/cetak/'), siswa.id]|join }}" class="btn btn-info" target="_blank"><i class="fa fa-print"></i> Cetak</a>
+			<a href="{{ [base_url('siswa/edit/'), siswa.id]|join }}" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
+			<a href="{{ base_url('siswa') }}" class="btn btn-danger"><i class="fa fa-reply"></i> Kembali</a>
+		</div>
+	</div>
+{% endblock %}

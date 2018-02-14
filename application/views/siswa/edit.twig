@@ -1,0 +1,79 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}
+	Edit Siswa {{ siswa.nama }}
+{% endblock %}
+
+{% block header %}
+	<h1> Edit Siswa {{ siswa.nama }}</h1>
+{% endblock %}
+
+{% block content %}
+	<form action="{{ [base_url('siswa/edit/'), siswa.id]|join }}" method="post">
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				<div class="form-group">
+					<label for="">Nama</label>
+					<input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap" value="{{ siswa.nama }}">
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<div class="form-group">
+					<label for="">Tahun</label>
+					<select name="tahun" id="tahun" class="form-control">
+						<option value="">--Pilih Tahun--</option>
+						{% for item in range(2010, carbon().year) %}
+
+						<option value="{{ item }}" {{ item == siswa.tahun ? 'selected' }}>{{ item }}</option>
+						{% endfor %}
+
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<div class="form-group">
+					<label for="">Kelas</label>
+					<select name="kelas" id="kelas" class="form-control">
+						<option value="">--Pilih Kelas--</option>
+						{% for item in kelas %}
+
+						<option value="{{ item.id }}" {{ item.kelas == siswa.kelas.kelas ? 'selected' }}>{{ item.kelas }}</option>
+						{% endfor %}
+						
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<div class="form-group">
+					<label for="">Ruang</label>
+					<select name="ruang" id="ruang" class="form-control">
+						<option value="">--Pilih Ruang--</option>
+						{% for item in ruang %}
+
+						<option value="{{ item.id }}" {{ item.ruang == siswa.ruang.ruang ? 'selected' }}>{{ item.ruang }}</option>
+						{% endfor %}
+						
+					</select>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12">
+				<div class="form-group">
+					<label for="">Iuran</label>
+						<div class="row">
+						{% for item in siswa.status %}
+							<div class="col-md-6 col-sm-6">
+								<label for="{{ item.id }}"><input type="checkbox" name="iuran[]" id="{{ item.id }}" value="{{ item.id }}" {{ item.status ? 'checked' }}> <span class="label label-{{ item.status ? 'success':'danger' }}">{{ item.iuran.kategori|title }}</span></label>
+							</div>
+						{% endfor %}
+						</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12">
+				<div class="form-group">
+					<button type="submit" name="simpan" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button> &nbsp;&nbsp;
+					<a href="{{ base_url('siswa') }}" class="btn btn-danger"><i class="fa fa-reply"></i> Kembali</a>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}

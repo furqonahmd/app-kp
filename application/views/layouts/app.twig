@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title>SMP N 1 :: {% block title %}{% endblock %}</title>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+	<link rel="stylesheet" href="{{ base_url() }}css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ base_url() }}css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ base_url() }}css/AdminLTE.css">
+    <style>
+        .btn, .form-control, .panel, .label {
+            border-radius: 0px;
+        }
+    </style>
+	{% block css %}{% endblock %}
+</head>
+<body class="skin-blue">
+	<header class="header">
+        <a href="{{ base_url() }}" class="logo">
+            SiUR
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>Admin <i class="caret"></i></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header bg-light-blue">
+                                <img src="{{ base_url() }}images/logo.png" class="img-circle" alt="User Image">
+                                <p>
+                                    Jane Doe - Web Developer
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a href="{{ base_url('auth/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+            <aside class="left-side sidebar-offcanvas">
+                <section class="sidebar">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="{{ base_url() }}images/logo.png" class="img-circle" alt="User Image" >
+                        </div>
+                        <div class="pull-left info">
+                            <p>
+                                <strong>SMP N 1</strong>
+                                <br>
+                                Karang Tengah
+                            </p>
+                        </div>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="{{ base_url() == current_url() ? 'active' }}">
+                            <a href="{{ base_url() }}">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="{{ segment(1) == 'guru' ? 'active' }}">
+                            <a href="{{ base_url('guru') }}">
+                                <i class="fa fa-users"></i> <span>Wali Kelas</span>
+                            </a>
+                        </li>
+                        <li class="{{ segment(1) == 'siswa' ? 'active' }}">
+                            <a href="{{ base_url('siswa') }}">
+                                <i class="fa fa-users"></i> <span>Siswa</span>
+                            </a>
+                        </li>
+                        <li class="{{ segment(1) == 'kelas' ? 'active' }}">
+                            <a href="{{ base_url('kelas') }}">
+                                <i class="fa fa-home"></i> <span>Kelas & Ruang</span>
+                            </a>
+                        </li>
+                        <li class="{{ segment(1) == 'iuran' ? 'active' }}">
+                            <a href="{{ base_url('iuran') }}">
+                                <i class="fa fa-money"></i> <span>Iuran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+            <aside class="right-side">
+                <section class="content-header">
+                    {% block header %}{% endblock %}
+                </section>
+                <section class="content">
+                	{% block content %}{% endblock %}
+                </section>
+            </aside>
+        </div>
+		
+	<script src="{{ base_url() }}js/jquery.js"></script>
+	<script src="{{ base_url() }}js/bootstrap.min.js"></script>
+	<script src="{{ base_url() }}js/app.js"></script>
+	{% block js %}{% endblock %}
+</body>
+</html>

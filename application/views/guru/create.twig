@@ -1,0 +1,54 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}
+	Tambah Guru
+{% endblock %}
+
+{% block header %}
+	<h1>Tambah Guru</h1>
+{% endblock %}
+
+{% block content %}
+	{% include 'layouts/info.twig' %}
+	<div class="row">
+		{{ form_open(base_url('guru/tambah')) }}
+			<div class="form-group col-md-6 col-sm-6">
+				<label for="">NIP</label>
+				<input type="text" name="nip" id="nip" class="form-control" placeholder="Masukkan NIP" value="{{ set_value('nip') }}">
+			</div>
+			<div class="form-group col-md-6 col-sm-6">
+				<label for="">Nama</label>
+				<input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap" value="{{ set_value('nama') }}">
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<div class="form-group">
+					<label for="">Kelas</label>
+					<select name="kelas_id" id="kelas_id" class="form-control">
+						<option value="">--Pilih Kelas--</option>
+						{% for item in kelas %}
+
+						<option value="{{ item.id }}" {{ item.kelas == guru.kelas.kelas ? 'selected' }}>{{ item.kelas }}</option>
+						{% endfor %}
+						
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<div class="form-group">
+					<label for="">Ruang</label>
+					<select name="ruang_id" id="ruang_id" class="form-control">
+						<option value="">--Pilih Ruang--</option>
+						{% for item in ruang %}
+
+						<option value="{{ item.id }}" {{ item.ruang == guru.ruang.ruang ? 'selected' }}>{{ item.ruang }}</option>
+						{% endfor %}
+						
+					</select>
+				</div>
+			</div>
+			<div class="form-group col-md-12 col-sm-12">
+				<button type="submit" name="simpan" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+			</div>
+		{{ form_close() }}
+	</div>
+{% endblock %}

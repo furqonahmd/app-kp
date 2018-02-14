@@ -1,0 +1,60 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}
+	Edit Siswa {{ kelas.nama }}
+{% endblock %}
+
+{% block header %}
+	<h1> Edit Siswa {{ kelas.nama }}</h1>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-12">
+			<form action="{{ [base_url('kelas/edit/'), kelas.id]|join }}" method="post">
+				<div class="form-group">
+					<label for="">Kelas</label>
+					<select name="kelas" id="kelas" class="form-control">
+						<option value="">--Pilih Kelas--</option>
+						{% for item in range(7,9) %}
+							<option value="{{ item }}" {{ item == kelas.kelas ? 'selected' }}>{{ item }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="">Ruang</label>
+					<select name="ruang[]" id="ruang" class="form-control" multiple>
+						{% for item in ruang %}
+							<option value="{{ item.id }}">{{ item.ruang }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<button type="submit" name="simpan" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+					<a href="{{ base_url('kelas') }}" class="btn btn-danger"><i class="fa fa-reply"></i> Kembali</a>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ base_url() }}/css/select2.min.css">
+	<style>
+		.select2-container--default .select2-selection--multiple, .select2-dropdown {
+			border-radius: 0px;
+		}
+	</style>
+{% endblock %}
+
+{% block js %}
+	<script src="{{ base_url() }}/js/select2.full.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#ruang').select2({
+				placeholder: '-- Pilih Ruang --'
+			});
+			$('#ruang').select2().val({{ kelas.ruang().pluck('id') }}).trigger('change');
+		});
+	</script>
+{% endblock %}

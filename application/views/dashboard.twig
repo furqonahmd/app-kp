@@ -1,0 +1,53 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}
+	Dashboard
+{% endblock %}
+
+{% block header %}
+	<h1>Dashboard</h1>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="small-box bg-red">
+						<div class="inner">
+							<h3>10</h3>
+							<p>Siswa Belum Lunas</p>
+						</div>
+						<div class="icon">
+							<i class="fa fa-users"></i>
+						</div>
+						<a href="#" class="small-box-footer">
+							More info <i class="fa fa-arrow-circle-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<div class="box box-primary">
+				<div class="box-heading">
+					<h4>Cetak Kelas</h4>
+				</div>
+				<div class="box-body">
+					{{ form_open('welcome/cetak', 'target="_blank"') }}
+					<div class="input-group">
+						<select name="kelas" id="" class="form-control">
+							{% for item in guru %}
+								<option class="option" value="{{ item.nip }}" onclick="ketarget('?wali={{ item.nama }}')">{{ [item.kelas.kelas, item.ruang.ruang, ' - ', item.nama]|join }}</option>
+							{% endfor %}
+						</select>
+		                <span class="input-group-btn">
+		                	<button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-print"></i> Cetak</button>
+		                </span>
+					</div>
+					{{ form_close() }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

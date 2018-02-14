@@ -1,0 +1,83 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}
+	Tambah Siswa
+{% endblock %}
+
+{% block header %}
+	<h1>Tambah Siswa</h1>
+{% endblock %}
+
+{% block content %}
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#insert" data-toggle="tab">Tambah</a></li>
+		<li><a href="#import" data-toggle="tab">Import</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="insert" class="tab-pane fade in active">
+			<br>
+			<div class="row">
+				{{ form_open(base_url('siswa/tambah')) }}
+					<div class="form-group col-md-6 col-sm-6">
+						<label for="">Nisn</label>
+						<input type="text" name="nisn" id="nisn" class="form-control" placeholder="Masukkan NISN">
+					</div>
+					<div class="form-group col-md-6 col-sm-6">
+						<label for="">Nama</label>
+						<input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap">
+					</div>
+					<div class="form-group col-md-4 col-sm-4">
+						<label for="">Tahun</label>
+						<select name="tahun" id="tahun" class="form-control">
+							<option value="">--Pilih Tahun--</option>
+							{% for item in range(2010, carbon().year) %}
+								<option value="{{ item }}" {{ item == carbon().year ? 'selected' }}>{{ item }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="form-group">
+							<label for="">Kelas</label>
+							<select name="kelas_id" id="kelas_id" class="form-control">
+								<option value="">--Pilih Kelas--</option>
+								{% for item in kelas %}
+
+								<option value="{{ item.id }}" {{ item.kelas == siswa.kelas.kelas ? 'selected' }}>{{ item.kelas }}</option>
+								{% endfor %}
+								
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="form-group">
+							<label for="">Ruang</label>
+							<select name="ruang_id" id="ruang_id" class="form-control">
+								<option value="">--Pilih Ruang--</option>
+								{% for item in ruang %}
+
+								<option value="{{ item.id }}" {{ item.ruang == siswa.ruang.ruang ? 'selected' }}>{{ item.ruang }}</option>
+								{% endfor %}
+								
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-md-12 col-sm-12">
+						<button type="submit" name="simpan" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+					</div>
+				{{ form_close() }}
+			</div>
+		</div>
+		<div id="import" class="tab-pane fade in">
+			<br>
+			{{ form_open_multipart(base_url('siswa/tambah')) }}
+				<div class="form-group">
+					<label for="">Import File</label>
+					<input type="file" name="siswa" id="siswa">
+				</div>
+				<div class="form-group">
+					<button type="submit" name="simpan" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
+				</div>
+			{{ form_close() }}
+		</div>
+	</div>
+{% endblock %}

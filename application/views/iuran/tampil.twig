@@ -1,0 +1,40 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}
+	Detail Iuran {{ iuran.kategori }}
+{% endblock %}
+
+{% block header %}
+	<h1> Detail Iuran {{ iuran.kategori }}</h1>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<th>Kategori</th>
+							<td>{{ iuran.kategori }}</td>
+						</tr>
+						<tr>
+							<th>Jumlah</th>
+							<td>{{ iuran.jumlah|number_format(0, ',', '.') }}</td>
+						</tr>
+						<tr>
+							<th>Kelas</th>
+							<td>
+								{% for item in iuran.kelas %}
+									<div class="label label-danger">{{ item.kelas }}</div>
+								{% endfor %}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<a href="{{ [base_url('iuran/edit/'), iuran.id]|join }}" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
+			<a href="{{ base_url('iuran') }}" class="btn btn-danger"><i class="fa fa-reply"></i> Kembali</a>
+		</div>
+	</div>
+{% endblock %}
